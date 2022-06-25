@@ -1,0 +1,14 @@
+.letter-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.letter-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  margin: 10px 10px;
+}
