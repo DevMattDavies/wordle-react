@@ -2,13 +2,18 @@ import "./Daily.modules.css";
 import LetterBoxes from "../LetterBoxes/LetterBoxes";
 import Keyboard from "../Keyboard/Keyboard";
 
-function Daily({ handleKeyClick, handleEnterClick, handleBackspaceClick }) {
+function Daily({
+  handleKeyClick,
+  handleEnterClick,
+  handleBackspaceClick,
+  userWord,
+}) {
   return (
     <div id="daily">
-      <LetterBoxes />
+      <LetterBoxes userWord={userWord} />
       <Keyboard
         handleKeyClick={handleKeyClick}
-        handleEnterCLick={handleEnterClick}
+        handleEnterClick={handleEnterClick}
         handleBackspaceClick={handleBackspaceClick}
       />
     </div>

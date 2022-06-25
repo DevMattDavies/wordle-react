@@ -26,6 +26,12 @@
   background-color: lightgrey;
 }
 
+.keyboard-letter:hover,
+.enter-button:hover,
+.backspace-button:hover {
+  cursor: pointer;
+}
+
 .enter-button,
 .backspace-button {
   width: 6rem;
