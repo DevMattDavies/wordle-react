@@ -1,8 +1,30 @@
 #navigation {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  height: 100px;
+  padding: 0 20px;
+  height: 75px;
   background-color: black;
   color: white;
+}
+
+.nav-title {
+  font-family: "Montserrat Subrayada", sans-serif;
+  font-size: 2.5rem;
+  /* background: -webkit-linear-gradient(#eee, orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}
+
+.nav-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0 20px;
+}
+
+.nav-link:hover {
+  color: orange;
 }

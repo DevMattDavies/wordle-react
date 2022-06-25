@@ -1,15 +1,19 @@
-import './Navbar.modules.css'
-import { BrowserRouter as Link, NavLink } from "react-router-dom";
-
+import "./Navbar.modules.css";
 
 function Navbar() {
   return (
     <nav id="navigation">
-      <Link to="/">Daily</Link>
-      <h1>Wordle</h1>
-      <Link to="/continuous">Continuous Play</Link>
+      <h1 className="nav-title">Wordle</h1>
+      <div id="nav-links">
+      <a className="nav-link" href="/">
+        Daily
+      </a>
+      <a className="nav-link" href="/continuous">
+        Continuous
+      </a>
+      </div>
     </nav>
-  )
+  );
 }
 
 export default Navbar;

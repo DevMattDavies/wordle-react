@@ -1,0 +1,32 @@
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#row-1,
+#row-2,
+#row-3 {
+  display: flex;
+  margin: 3px 0;
+}
+
+.keyboard-letter,
+.enter-button,
+.backspace-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  width: 3rem;
+  height: 4rem;
+  border: 2px solid black;
+  margin: 0 3px;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+
+.enter-button,
+.backspace-button {
+  width: 6rem;
+}

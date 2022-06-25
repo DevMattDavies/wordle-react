@@ -19,6 +19,7 @@ export function OneWord() {
     axios
       .request(options)
       .then(function (response) {
+        console.log(`TODAYS WORD: ${response.data.today}`);
         setTodaysWord(response.data.today);
       })
       .catch(function (error) {
@@ -50,6 +51,7 @@ export function RandomWord() {
         const allWords = response.data.data;
         const randomNum = Math.floor(Math.random() * allWords.length);
         const randomWord = allWords[randomNum].answer;
+        console.log(`RANDOM WORD: ${randomWord}`);
         setRandomWord(randomWord);
       })
       .catch(function (error) {
@@ -59,3 +61,4 @@ export function RandomWord() {
 
   return randomWord;
 }
+
