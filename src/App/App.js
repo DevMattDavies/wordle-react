@@ -14,6 +14,14 @@ function App() {
 
   const [letter, setLetter] = useState("");
   const [userWord, setUserWord] = useState([]);
+  const [userGuess, setUserGuess] = useState([]);
+  const [userWordOne, setUserWordOne] = useState([]);
+  const [userWordTwo, setUserWordTwo] = useState([]);
+  const [userWordThree, setUserWordThree] = useState([]);
+  const [userWordFour, setUserWordFour] = useState([]);
+  const [userWordFive, setUserWordFive] = useState([]);
+  const [userWordSix, setUserWordSix] = useState([]);
+  const [rowCount, setRowCount] = useState(1);
 
   // --- API Req for words ---
   // Todays word API Req
@@ -68,17 +76,51 @@ function App() {
     e.preventDefault();
     const letter = e.target.innerText;
     setLetter(letter);
+    setUserWord([...userWord, letter]);
     if (userWord.length <= 4) {
-      setUserWord([...userWord, letter]);
+      setUserWordOne([...userWordOne, letter]);
+      setUserGuess([...userWordOne, letter]);
+    } else if (userWord.length > 4 && userWord.length <= 9 && rowCount === 2) {
+      setUserWordTwo([...userWordTwo, letter]);
+      setUserGuess([...userWordTwo, letter]);
+    } else if (userWord.length > 9 && userWord.length <= 14 && rowCount === 3) {
+      setUserWordThree([...userWordThree, letter]);
+      setUserGuess([...userWordThree, letter]);
+    } else if (
+      userWord.length > 14 &&
+      userWord.length <= 19 &&
+      rowCount === 4
+    ) {
+      setUserWordFour([...userWordFour, letter]);
+      setUserGuess([...userWordFour, letter]);
+    } else if (
+      userWord.length > 19 &&
+      userWord.length <= 24 &&
+      rowCount === 5
+    ) {
+      setUserWordFive([...userWordFive, letter]);
+      setUserGuess([...userWordFive, letter]);
+    } else if (
+      userWord.length > 24 &&
+      userWord.length <= 29 &&
+      rowCount === 6
+    ) {
+      setUserWordSix([...userWordSix, letter]);
+      setUserGuess([...userWordSix, letter]);
     }
   };
 
   // onClick function for Enter button
   const handleEnterClick = (e) => {
     // if (userWord.length < 5) {
-    console.log(userWord);
-    console.log("Enter clicked");
     // alert('Please enter 5 letters');
+    console.log(userGuess);
+    if (userGuess.join("") !== todaysWord) {
+      console.log("wrong");
+      setRowCount(rowCount + 1);
+    } else {
+      console.log("right");
+    }
     // }
   };
 
@@ -98,6 +140,7 @@ function App() {
               handleEnterClick={handleEnterClick}
               handleBackspaceClick={handleBackspaceClick}
               userWord={userWord}
+              // userWordTwo={userWord}
             />
           </Route>
           <Route path="/continuous">
