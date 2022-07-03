@@ -6,18 +6,22 @@ function Daily({
   handleKeyClick,
   handleEnterClick,
   handleBackspaceClick,
-  answer,
   currentWord,
   rowCount,
-  userAttempts
+  userAttempts,
+  allColors,
+  letterColors
 }) {
+
+  // console.log(currentColors)
   return (
     <div id="daily">
       <LetterBoxes
         currentWord={currentWord}
         rowCount={rowCount}
         userAttempts={userAttempts}
-        answer={answer}
+        allColors={allColors}
+        letterColors={letterColors}
       />
       <Keyboard
         handleKeyClick={handleKeyClick}
