@@ -1,6 +1,9 @@
 import "./LetterRow.modules.css";
 
-function LetterRow({ userWord }) {
+function LetterRow({ userWord, answer }) {
+  
+
+
   return (
     <div className="letter-row">
       <p className="letter-box">{userWord[0]}</p>

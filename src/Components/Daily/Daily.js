@@ -6,11 +6,19 @@ function Daily({
   handleKeyClick,
   handleEnterClick,
   handleBackspaceClick,
-  userWord,
+  answer,
+  currentWord,
+  rowCount,
+  userAttempts
 }) {
   return (
     <div id="daily">
-      <LetterBoxes userWord={userWord} />
+      <LetterBoxes
+        currentWord={currentWord}
+        rowCount={rowCount}
+        userAttempts={userAttempts}
+        answer={answer}
+      />
       <Keyboard
         handleKeyClick={handleKeyClick}
         handleEnterClick={handleEnterClick}

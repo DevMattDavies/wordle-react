@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -8,20 +9,33 @@ import Continuous from "../Components/Continuous/Continuous";
 import "./App.css";
 
 function App() {
-  // States
+  // States for setting API returns
   const [todaysWord, setTodaysWord] = useState("");
   const [randomWord, setRandomWord] = useState("");
 
+  // States for setting current letters and rows
   const [letter, setLetter] = useState("");
-  const [userWord, setUserWord] = useState([]);
-  const [userGuess, setUserGuess] = useState([]);
-  const [userWordOne, setUserWordOne] = useState([]);
-  const [userWordTwo, setUserWordTwo] = useState([]);
-  const [userWordThree, setUserWordThree] = useState([]);
-  const [userWordFour, setUserWordFour] = useState([]);
-  const [userWordFive, setUserWordFive] = useState([]);
-  const [userWordSix, setUserWordSix] = useState([]);
+  const [letterColors, setLetterColors] = useState([]);
+  const [currentWord, setCurrentWord] = useState([]);
   const [rowCount, setRowCount] = useState(1);
+
+  // States for setting words to correct line on enter press
+  const [firstAttempt, setFirstAttempt] = useState([]);
+  const [secondAttempt, setSecondAttempt] = useState([]);
+  const [thirdAttempt, setThirdAttempt] = useState([]);
+  const [fourthAttempt, setFourthAttempt] = useState([]);
+  const [fifthAttempt, setFifthAttempt] = useState([]);
+  const [sixthAttempt, setSixthAttempt] = useState([]);
+
+  // Array of all user attempts to pass down as props cleanly
+  const userAttempts = [
+    firstAttempt,
+    secondAttempt,
+    thirdAttempt,
+    fourthAttempt,
+    fifthAttempt,
+    sixthAttempt,
+  ];
 
   // --- API Req for words ---
   // Todays word API Req
@@ -76,57 +90,98 @@ function App() {
     e.preventDefault();
     const letter = e.target.innerText;
     setLetter(letter);
-    setUserWord([...userWord, letter]);
-    if (userWord.length <= 4) {
-      setUserWordOne([...userWordOne, letter]);
-      setUserGuess([...userWordOne, letter]);
-    } else if (userWord.length > 4 && userWord.length <= 9 && rowCount === 2) {
-      setUserWordTwo([...userWordTwo, letter]);
-      setUserGuess([...userWordTwo, letter]);
-    } else if (userWord.length > 9 && userWord.length <= 14 && rowCount === 3) {
-      setUserWordThree([...userWordThree, letter]);
-      setUserGuess([...userWordThree, letter]);
-    } else if (
-      userWord.length > 14 &&
-      userWord.length <= 19 &&
-      rowCount === 4
-    ) {
-      setUserWordFour([...userWordFour, letter]);
-      setUserGuess([...userWordFour, letter]);
-    } else if (
-      userWord.length > 19 &&
-      userWord.length <= 24 &&
-      rowCount === 5
-    ) {
-      setUserWordFive([...userWordFive, letter]);
-      setUserGuess([...userWordFive, letter]);
-    } else if (
-      userWord.length > 24 &&
-      userWord.length <= 29 &&
-      rowCount === 6
-    ) {
-      setUserWordSix([...userWordSix, letter]);
-      setUserGuess([...userWordSix, letter]);
+    if (currentWord.length >= 5) {
+      setCurrentWord(currentWord.slice(0, 5));
+    }
+    if (currentWord.length < 5) {
+      setCurrentWord([...currentWord, letter]);
     }
   };
 
   // onClick function for Enter button
   const handleEnterClick = (e) => {
-    // if (userWord.length < 5) {
-    // alert('Please enter 5 letters');
-    console.log(userGuess);
-    if (userGuess.join("") !== todaysWord) {
-      console.log("wrong");
-      setRowCount(rowCount + 1);
+    if (currentWord.length < 5) {
+      alert("Please enter 5 letters");
+    } else if (currentWord.join("") === todaysWord) {
+      console.log(`${currentWord.join("")} is CORRECT!`);
     } else {
-      console.log("right");
+      wordToCorrectLine();
+      // letterToCorrectColor();
     }
-    // }
   };
+
+  // Switch expression to match entered word to correct line
+  const wordToCorrectLine = () => {
+    if (currentWord.length === 5) {
+      switch (currentWord.join("") !== todaysWord) {
+        case rowCount === 1:
+          console.log(`${currentWord.join("")} is incorrect`);
+          setFirstAttempt(currentWord);
+          setRowCount(rowCount + 1);
+          setCurrentWord([]);
+          break;
+
+        case rowCount === 2:
+          console.log(`${currentWord.join("")} is incorrect`);
+          setSecondAttempt(currentWord);
+          setRowCount(rowCount + 1);
+          setCurrentWord([]);
+          break;
+
+        case rowCount === 3:
+          console.log(`${currentWord.join("")} is incorrect`);
+          setThirdAttempt(currentWord);
+          setRowCount(rowCount + 1);
+          setCurrentWord([]);
+          break;
+
+        case rowCount === 4:
+          console.log(`${currentWord.join("")} is incorrect`);
+          setFourthAttempt(currentWord);
+          setRowCount(rowCount + 1);
+          setCurrentWord([]);
+          break;
+
+        case rowCount === 5:
+          console.log(`${currentWord.join("")} is incorrect`);
+          setFifthAttempt(currentWord);
+          setRowCount(rowCount + 1);
+          setCurrentWord([]);
+          break;
+
+        case rowCount === 6:
+          console.log(`${currentWord.join("")} is incorrect`);
+          setSixthAttempt(currentWord);
+          setRowCount(rowCount + 1);
+          setCurrentWord([]);
+          break;
+      }
+    }
+  };
+
+  // Return correct color as a string to pass down as prop
+  // const letterToCorrectColor = () => {
+  //   const colors = currentWord.map((letter, index) => () => {
+  //     // for (let i = 0; i < currentWord.length; i++) {
+  //     if (letter === todaysWord[index]) {
+  //       // setLetterColors([...letterColors, "green"]);
+  //      return colors[index] = "green";
+  //     } else {
+  //       // setLetterColors([...letterColors, "grey"]);
+  //       return colors[index] = "grey";
+  //     }
+  //   });
+  //   console.log(currentWord)
+  // };
+
+
 
   // onClick function for delete button
   const handleBackspaceClick = (e) => {
-    console.log("backspace clicked");
+    // console.log("backspace clicked");
+    // console.log(rowCount);
+    // console.log(userAttempts);
+    console.log(letterColors);
   };
 
   return (
@@ -139,8 +194,10 @@ function App() {
               handleKeyClick={handleKeyClick}
               handleEnterClick={handleEnterClick}
               handleBackspaceClick={handleBackspaceClick}
-              userWord={userWord}
-              // userWordTwo={userWord}
+              answer={todaysWord}
+              currentWord={currentWord}
+              rowCount={rowCount}
+              userAttempts={userAttempts}
             />
           </Route>
           <Route path="/continuous">
