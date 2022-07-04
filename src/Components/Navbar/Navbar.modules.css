@@ -16,6 +16,10 @@
   -webkit-text-fill-color: transparent; */
 }
 
+.nav-title:hover {
+  cursor: default;
+}
+
 .nav-link {
   text-decoration: none;
   text-transform: uppercase;

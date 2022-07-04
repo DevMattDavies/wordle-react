@@ -103,15 +103,6 @@ function App() {
       });
   }, []);
 
-  // Produce an object counting instance of each letter in word of the day
-  // useEffect(() => {
-  //   let count = {};
-  //   todaysWord.forEach(function (s) {
-  //     count[s] ? count[s]++ : (count[s] = 1);
-  //   });
-  //   console.log(count);
-  //   setLetterCount(count);
-  // }, [todaysWord]);
 
   // onClick functions for keys
   const handleKeyClick = (e) => {
@@ -139,7 +130,6 @@ function App() {
       letterToCorrectColor();
       setGameState(1);
     } else {
-      // let colors = Array(currentWord.length).fill("lightgrey");
       letterToCorrectColor();
       wordToCorrectLine();
       setRowCount(rowCount + 1);
@@ -152,13 +142,20 @@ function App() {
   // Create color array and set all to grey
   let colors = Array(currentWord.length).fill("lightgrey");
   const letterToCorrectColor = () => {
-    let answer = [...todaysWord];
-    console.log(answer, todaysWord);
+    let answer = [];
+    // Check to see if on continuous play and set answer accordingly
+    /continuous/.test(window.location.href)
+      ? (answer = [...randomWord])
+      : (answer = answer = [...todaysWord]);
+    console.log(answer);
     // loop through current guess and set to green if correct
     for (let i = 0; i < currentWord.length; i++) {
-      // console.log(currentWord);
       if (currentWord[i] === answer[i]) {
-        colors = [...colors.slice(0, [i]), "green", ...colors.slice([i + 1], 5)];
+        colors = [
+          ...colors.slice(0, [i]),
+          "green",
+          ...colors.slice([i + 1], 5),
+        ];
         // remove letter from answer so it's not scored again
         answer[i] = " ";
         console.log(answer, colors);
@@ -167,7 +164,11 @@ function App() {
     // loop through current guess and set to yellow if partially correct
     for (let i = 0; i < currentWord.length; i++) {
       if (colors[i] !== "green" && answer.includes(currentWord[i])) {
-        colors = [...colors.slice(0, [i]), "yellow", ...colors.slice([i + 1], 5)];
+        colors = [
+          ...colors.slice(0, [i]),
+          "yellow",
+          ...colors.slice([i + 1], 5),
+        ];
         console.log(answer, colors);
       }
     }
@@ -175,7 +176,6 @@ function App() {
     setLetterColors(colors);
     return colors;
   };
-
 
   // Switch expression to match entered word to correct line
   const wordToCorrectLine = () => {
@@ -223,10 +223,6 @@ function App() {
   // onClick function for delete button
   const handleBackspaceClick = (e) => {
     setCurrentWord(currentWord.slice(0, currentWord.length - 1));
-    console.log(letterColors);
-    // setFirstAttemptColor(letterColors);
-    // console.log(firstAttemptColor);
-    console.log(rowCount);
   };
 
   return (
@@ -248,7 +244,17 @@ function App() {
             />
           </Route>
           <Route path="/continuous">
-            <Continuous />
+            <Continuous
+              handleKeyClick={handleKeyClick}
+              handleEnterClick={handleEnterClick}
+              handleBackspaceClick={handleBackspaceClick}
+              answer={todaysWord}
+              currentWord={currentWord}
+              rowCount={rowCount}
+              userAttempts={userAttempts}
+              allColors={allColors}
+              letterColors={letterColors}
+            />
           </Route>
         </Switch>
       </Router>
