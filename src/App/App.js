@@ -115,7 +115,7 @@ function App() {
 
   // onClick functions for keys
   const handleKeyClick = (e) => {
-    console.log(todaysWord);
+    // console.log(todaysWord);
     if (gameState === 0) {
       e.preventDefault();
       const letter = e.target.innerText;
@@ -139,6 +139,7 @@ function App() {
       letterToCorrectColor();
       setGameState(1);
     } else {
+      // let colors = Array(currentWord.length).fill("lightgrey");
       letterToCorrectColor();
       wordToCorrectLine();
       setRowCount(rowCount + 1);
@@ -147,64 +148,34 @@ function App() {
     }
   };
 
-  // Create color array and set all to grey
-  // let colors = Array(currentWord.length).fill("lightgrey");
   // Return correct color as a string to pass down as prop
-  // let colors = [];
-  // const letterToCorrectColor = () => {
-  //   let answer = todaysWord;
-  //   console.log(answer);
-  //   // loop through current guess and set to green if correct
-  //   for (let i = 0; i < currentWord.length; i++) {
-  //     console.log(currentWord)
-  //     if (currentWord[i] === answer[i]) {
-  //       colors = [...colors, "green"];
-  //       // remove letter from answer so it's not scored again
-  //       answer[i] = " ";
-  //       console.log(answer)
-  //     }
-  //   }
-  //   // loop through current guess and set to yellow if partially correct
-  //   for (let i = 0; i < currentWord.length; i++) {
-  //     if (colors[i] !== "green" && answer.includes(currentWord[i])) {
-  //       colors = [...colors, "yellow"];
-  //       answer[i] = " ";
-  //       console.log(answer)
-  //     }
-  //   }
-
-  //   for (let i = 0; i < currentWord.length; i++) {
-  //     if (currentWord[i] !== answer[i]) {
-  //       colors = [...colors, "grey"];
-  //     }
-  //   }
-  //   setLetterColors(colors);
-  // };
-
-  let colors = [];
-  // let colors = Array(currentWord.length).fill("lightgrey");
+  // Create color array and set all to grey
+  let colors = Array(currentWord.length).fill("lightgrey");
   const letterToCorrectColor = () => {
-    let answer = todaysWord.toString().replace(/,/g, "");
-    let guess = currentWord;
-    console.log(answer, guess);
-
-    guess.forEach((letter, index) => {
-      if (letter == answer[index]) {
-        console.log('correct letter')
-        colors = [...colors, "green"];
-        answer = answer.replace(letter, "");
+    let answer = [...todaysWord];
+    console.log(answer, todaysWord);
+    // loop through current guess and set to green if correct
+    for (let i = 0; i < currentWord.length; i++) {
+      // console.log(currentWord);
+      if (currentWord[i] === answer[i]) {
+        colors = [...colors.slice(0, [i]), "green", ...colors.slice([i + 1], 5)];
+        // remove letter from answer so it's not scored again
+        answer[i] = " ";
+        console.log(answer, colors);
       }
-    });
-
-    guess.forEach((letter) => {
-      if (todaysWord.includes(letter)) {
-        colors = [...colors, "yellow"];
-        answer = answer.replace(letter, "");
+    }
+    // loop through current guess and set to yellow if partially correct
+    for (let i = 0; i < currentWord.length; i++) {
+      if (colors[i] !== "green" && answer.includes(currentWord[i])) {
+        colors = [...colors.slice(0, [i]), "yellow", ...colors.slice([i + 1], 5)];
+        console.log(answer, colors);
       }
-    });
+    }
 
     setLetterColors(colors);
+    return colors;
   };
+
 
   // Switch expression to match entered word to correct line
   const wordToCorrectLine = () => {
