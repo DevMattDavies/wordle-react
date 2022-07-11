@@ -10,22 +10,24 @@ function Continuous({
   rowCount,
   userAttempts,
   allColors,
-  letterColors
-}) {  return (
-  <div id="daily">
-    <LetterBoxes
-      currentWord={currentWord}
-      rowCount={rowCount}
-      userAttempts={userAttempts}
-      allColors={allColors}
-      letterColors={letterColors}
-    />
-    <Keyboard
-      handleKeyClick={handleKeyClick}
-      handleEnterClick={handleEnterClick}
-      handleBackspaceClick={handleBackspaceClick}
-    />
-  </div>
-);}
+  letterColors,
+}) {
+  return (
+    <div id="daily">
+      <LetterBoxes
+        currentWord={currentWord}
+        rowCount={rowCount}
+        userAttempts={userAttempts}
+        allColors={allColors}
+        letterColors={letterColors}
+      />
+      <Keyboard
+        handleKeyClick={handleKeyClick}
+        handleEnterClick={handleEnterClick}
+        handleBackspaceClick={handleBackspaceClick}
+      />
+    </div>
+  );
+}
 
 export default Continuous;

@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -102,7 +101,6 @@ function App() {
         console.error(error);
       });
   }, []);
-
 
   // onClick functions for keys
   const handleKeyClick = (e) => {
